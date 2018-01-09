@@ -3,8 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>Etch-a-Sketch</title>
+    <style>
+      #container{
+        display: grid;
+        grid-template-columns: repeat(16, 50px);
+        grid-template-rows: repeat(16, 50px);
+      }
+    </style>
   </head>
   <body>
+    <div id="container">
 
+    </div>
+    <script type="text/javascript">
+      function generateDivs(numberOfDivs){
+        var container = document.getElementById('container');
+        for(var i = 0; i < numberOfDivs; i++){
+          var newDiv = document.createElement('div');
+          newDiv.classList.add('gridDiv');
+          newDiv.setAttribute('id', i);
+          newDiv.textContent = '.'
+          container.appendChild(newDiv);
+        }
+      }
+
+      
+
+      generateDivs(256);
+    </script>
   </body>
 </html>
