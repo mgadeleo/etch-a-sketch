@@ -6,30 +6,82 @@
     <style>
       #container{
         display: grid;
-        grid-template-columns: repeat(16, 50px);
-        grid-template-rows: repeat(16, 50px);
+        grid-template-columns: repeat(16, 1fr);
+        grid-template-rows: repeat(16, 1fr);
+
+        border-style: solid;
+        width: 800px;
+        height: 800px;
+
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        margin: auto;
+      }
+
+      .active{
+        background-color: blue;
+      }
+
+      #resetBtn{
+        margin-bottom: 50px;
+
+      }
+
+      div{
+        border-style: solid;
+        border-width: 0.5px;
       }
     </style>
   </head>
   <body>
+    <button id='resetBtn' onclick='reset()'>Reset field</button>
     <div id="container">
 
     </div>
     <script type="text/javascript">
       function generateDivs(numberOfDivs){
+        var total = numberOfDivs * numberOfDivs;
         var container = document.getElementById('container');
-        for(var i = 0; i < numberOfDivs; i++){
+        for(var i = 0; i < total; i++){
           var newDiv = document.createElement('div');
           newDiv.classList.add('gridDiv');
           newDiv.setAttribute('id', i);
-          newDiv.textContent = '.'
+          //newDiv.textContent = '.'
           container.appendChild(newDiv);
         }
       }
 
-      
+      generateDivs(16);
 
-      generateDivs(256);
+      var gridDivs = document.querySelector('div');
+      gridDivs.addEventListener("mouseover", function(event){
+        if(event.target.id !== 'container'){
+          event.target.classList.add('active');
+        }
+      })
+
+      function reset(){
+        console.log('derpy')
+        const divsToClear = document.querySelectorAll('div');
+        divsToClear.forEach(function(div){
+          div.classList.remove('active');
+        })
+        var input = prompt("How many squares per side?")
+        var container = document.getElementById('container')
+        container.innerHTML = '';
+        generateDivs(input)
+
+        // var gridColumns = container.style.gridTemplateColumns;
+        container.style.gridTemplateRows = 'repeat(' + input + ', 1fr)';
+        container.style.gridTemplateColumns = 'repeat(' + input + ', 1fr)';
+        // gridColumns.value('repeat(' + input + ', 1fr)');
+
+      }
+
     </script>
   </body>
 </html>
